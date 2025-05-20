@@ -28,7 +28,13 @@ function displayLibrary() {
         (book) => {
             const bookCard = document.createElement('div');
             bookCard.classList.add('book-card');
-            bookCard.innerHTML = `<h3>${book.title}</h3>`
+
+            bookCard.innerHTML = `
+            <h3>${book.title}</h3>
+            <p><strong>Author:</strong> ${book.author}</p>
+            <p><strong>Pages:</strong> ${book.pages}</p>
+            <p><strong>Read:</strong> ${book.isRead ? "Yes" : "No"}</p>
+            `;
             container.appendChild(bookCard);
         }
     )
@@ -57,10 +63,10 @@ confirmBtn.addEventListener("click", (event) => {
     event.preventDefault();
 
     // Get input values by ID
-    const title = document.getElementById("title").value;
-    const author = document.getElementById("author").value;
-    const pages = parseInt(document.getElementById("pages").value);
-    const isRead = document.getElementById("isRead").value === "true";
+    const title = document.querySelector("#title").value;
+    const author = document.querySelector("#author").value;
+    const pages = parseInt(document.querySelector("#pages").value);
+    const isRead = document.querySelector("#isRead").value === "true";
 
     // Add book and update display
     addBookToLibrary(title, author, pages, isRead);
