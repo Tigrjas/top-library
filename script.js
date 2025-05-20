@@ -34,7 +34,9 @@ function displayLibrary() {
             <p><strong>Author:</strong> ${book.author}</p>
             <p><strong>Pages:</strong> ${book.pages}</p>
             <p><strong>Read:</strong> ${book.isRead ? "Yes" : "No"}</p>
+            <button class="remove-btn" data-id="${book.id}">Remove</button>
             `;
+            
             container.appendChild(bookCard);
         }
     )
@@ -75,3 +77,16 @@ confirmBtn.addEventListener("click", (event) => {
     // Close dialog
     document.querySelector("dialog").close();
 });
+
+// Remove button logic
+const removeButtons = document.querySelectorAll(".remove-btn");
+removeButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        const bookId = e.target.dataset.id;
+        const bookIndex = myLibrary.findIndex((book) => book.id == bookId);
+        if (bookIndex !== -1) {
+            myLibrary.splice(bookIndex, 1);
+            displayLibrary();
+        }
+    })
+})
