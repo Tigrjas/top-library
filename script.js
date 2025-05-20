@@ -1,5 +1,4 @@
 
-
 class Book {
     constructor(title, author, pages, isRead) {
         this.id = crypto.randomUUID();
@@ -17,7 +16,7 @@ class Book {
 const myLibrary = [];
 
 function addBookToLibrary(title, author, pages, isRead) {
-    newBook = new Book(title, author, pages, isRead);
+    const newBook = new Book(title, author, pages, isRead);
     myLibrary.push(newBook);
 }
 
@@ -42,3 +41,31 @@ addBookToLibrary("Little Women", "Louisa May Alcott", 449, false);
 
 displayLibrary();
 
+// Modal logic
+function toggleModal() {
+    const dialog = document.querySelector("dialog");
+    dialog.showModal();
+}
+
+const newBookButton = document.querySelector(".new-book-button");
+newBookButton.addEventListener("click", toggleModal);
+
+// Confirm button logic
+const confirmBtn = document.querySelector("#confirmBtn");
+
+confirmBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    // Get input values by ID
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = parseInt(document.getElementById("pages").value);
+    const isRead = document.getElementById("isRead").value === "true";
+
+    // Add book and update display
+    addBookToLibrary(title, author, pages, isRead);
+    displayLibrary();
+
+    // Close dialog
+    document.querySelector("dialog").close();
+});

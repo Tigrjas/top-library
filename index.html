@@ -10,7 +10,33 @@
 <body>
     <h1>Welcome to my library</h1>
     <div class="container">
+        <button class="new-book-button">New Book</button>
+        <dialog id="new-book-dialog">
+            <form>
+                <div>
+                    <label for="title">Title:</label><br>
+                    <input type="text" id="title" name="title" placeholder="Doctor Sleep"><br>
+                    <label for="author" >Author: </label><br>
+                    <input type="text" id="author" name="author" placeholder="Stephen King"><br>
+                    <label for="pages" >Pages: </label><br>
+                    <input type="text" id="pages" name="pages" placeholder="1200"><br>
+                    <label for="isRead">Already read?</label>
+                    <select name="isRead" id="isRead">
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </div>
+                <br>
+                <div>
+                    <button value="cancel" formmethod="dialog">Cancel</button>
+                    <button id="confirmBtn" value="default">Confirm</button>
+                </div>
+        
+            </form>
+            
+        </dialog>
         <div class="card-container"></div>
+
     </div>
     
 </body>
