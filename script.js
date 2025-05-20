@@ -34,16 +34,21 @@ function displayLibrary() {
             <p><strong>Author:</strong> ${book.author}</p>
             <p><strong>Pages:</strong> ${book.pages}</p>
             <p><strong>Read:</strong> ${book.isRead ? "Yes" : "No"}</p>
+            <button class="read-toggle-btn" data-id="${book.id}">
+                Mark as: ${book.isRead ? "Unread" : "Read"}
+            </button>
             <button class="remove-btn" data-id="${book.id}">Remove</button>
             `;
             
             container.appendChild(bookCard);
         }
     )
+
+    attachCardEventListeners();
 }
 
 addBookToLibrary("Gone with the Wind", "Margaret Mitchell", 1037, false);
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 323, false);
+addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 323, true);
 addBookToLibrary("Little Women", "Louisa May Alcott", 449, false);
 
 
@@ -78,15 +83,35 @@ confirmBtn.addEventListener("click", (event) => {
     document.querySelector("dialog").close();
 });
 
-// Remove button logic
-const removeButtons = document.querySelectorAll(".remove-btn");
-removeButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        const bookId = e.target.dataset.id;
-        const bookIndex = myLibrary.findIndex((book) => book.id == bookId);
-        if (bookIndex !== -1) {
-            myLibrary.splice(bookIndex, 1);
-            displayLibrary();
-        }
+
+function attachCardEventListeners() {
+    // Remove button logic
+    const removeButtons = document.querySelectorAll(".remove-btn");
+    removeButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const bookId = e.target.dataset.id;
+            const bookIndex = myLibrary.findIndex((book) => book.id == bookId);
+            if (bookIndex !== -1) {
+                myLibrary.splice(bookIndex, 1);
+                displayLibrary();
+            }
+        })
     })
-})
+
+    // Toggle read status logic
+    const toggleReadButtons = document.querySelectorAll(".read-toggle-btn");
+    toggleReadButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            // check if book is read or not read
+            const bookId = e.target.dataset.id;
+            const book = myLibrary.find((b) => b.id == bookId)
+            if (book) {
+                book.isRead = !book.isRead;
+                displayLibrary();
+            }
+        })
+    })
+
+}
+
+
